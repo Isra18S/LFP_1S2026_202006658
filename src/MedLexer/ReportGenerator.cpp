@@ -1,135 +1,157 @@
 #include "ReportGenerator.h"
 #include <fstream>
-#include <sstream>
+#include <set>
+#include <iostream>
 
-std::string ReportGenerator::getPatientStatus(const Patient& patient, const std::vector<Diagnosis>& diagnoses) const {
-    int diagnosisCount = 0;
+// ================= PACIENTES =================
 
-    for (size_t i = 0; i < diagnoses.size(); i++) {
-        if (diagnoses[i].patientName == patient.name) {
-            diagnosisCount++;
-        }
-    }
+std::string ReportGenerator::getPatientStatus(const Patient& p, const std::vector<Diagnosis>& d) const {
+    int count = 0;
+    for (auto& x : d) if (x.patientName == p.name) count++;
 
-    if (diagnosisCount == 0) {
-        return "SIN DIAG.";
-    }
-    else if (diagnosisCount > 1) {
-        return "CRITICO";
-    }
-    else {
-        return "ACTIVO";
-    }
-}
-
-std::string ReportGenerator::getStatusClass(const std::string& status) const {
-    if (status == "ACTIVO") return "activo";
-    if (status == "SIN DIAG.") return "sin-diagn";
-    if (status == "CRITICO") return "critico";
-    return "";
+    if (count == 0) return "SIN DIAG.";
+    if (count > 1) return "CRITICO";
+    return "ACTIVO";
 }
 
 void ReportGenerator::generatePatientsReport(
     const std::vector<Patient>& patients,
     const std::vector<Diagnosis>& diagnoses,
-    const std::string& outputPath
+    const std::string& path
 ) {
-    std::ofstream file(outputPath.c_str());
+    std::ofstream f(path);
 
-    if (!file.is_open()) {
-        return;
+    f << "<html><body><h1>Pacientes</h1><table border='1'>";
+    f << "<tr><th>Nombre</th><th>Edad</th><th>Sangre</th><th>Estado</th></tr>";
+
+    for (auto& p : patients) {
+        f << "<tr><td>" << p.name << "</td><td>" << p.age
+          << "</td><td>" << p.bloodType << "</td><td>"
+          << getPatientStatus(p, diagnoses) << "</td></tr>";
     }
 
-    file << "<!DOCTYPE html>\n";
-    file << "<html lang=\"es\">\n";
-    file << "<head>\n";
-    file << "    <meta charset=\"UTF-8\">\n";
-    file << "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n";
-    file << "    <title>Reporte de Pacientes</title>\n";
-    file << "    <style>\n";
-    file << "        body {\n";
-    file << "            font-family: Arial, sans-serif;\n";
-    file << "            margin: 20px;\n";
-    file << "            background-color: #f4f6f8;\n";
-    file << "        }\n";
-    file << "        h1 {\n";
-    file << "            color: #1f4e79;\n";
-    file << "            text-align: center;\n";
-    file << "        }\n";
-    file << "        table {\n";
-    file << "            width: 100%;\n";
-    file << "            border-collapse: collapse;\n";
-    file << "            background-color: white;\n";
-    file << "        }\n";
-    file << "        th, td {\n";
-    file << "            border: 1px solid #ccc;\n";
-    file << "            padding: 10px;\n";
-    file << "            text-align: left;\n";
-    file << "        }\n";
-    file << "        th {\n";
-    file << "            background-color: #1f4e79;\n";
-    file << "            color: white;\n";
-    file << "        }\n";
-    file << "        .activo {\n";
-    file << "            background-color: #d4edda;\n";
-    file << "            color: #155724;\n";
-    file << "            font-weight: bold;\n";
-    file << "        }\n";
-    file << "        .sin-diagn {\n";
-    file << "            background-color: #fff3cd;\n";
-    file << "            color: #856404;\n";
-    file << "            font-weight: bold;\n";
-    file << "        }\n";
-    file << "        .critico {\n";
-    file << "            background-color: #f8d7da;\n";
-    file << "            color: #721c24;\n";
-    file << "            font-weight: bold;\n";
-    file << "        }\n";
-    file << "    </style>\n";
-    file << "</head>\n";
-    file << "<body>\n";
+    f << "</table></body></html>";
+}
 
-    file << "    <h1>Historial de Pacientes</h1>\n";
-    file << "    <table>\n";
-    file << "        <tr>\n";
-    file << "            <th>Paciente</th>\n";
-    file << "            <th>Edad</th>\n";
-    file << "            <th>Tipo de Sangre</th>\n";
-    file << "            <th>Diagnostico Activo</th>\n";
-    file << "            <th>Medicamento / Dosis</th>\n";
-    file << "            <th>Estado</th>\n";
-    file << "        </tr>\n";
+// ================= MEDICOS =================
 
-    for (size_t i = 0; i < patients.size(); i++) {
-        const Patient& patient = patients[i];
+int ReportGenerator::countAppointmentsForDoctor(const Doctor& d, const std::vector<Appointment>& a) const {
+    int c = 0;
+    for (auto& x : a) if (x.doctorName == d.name) c++;
+    return c;
+}
 
-        std::string condition = "Sin diagnostico registrado";
-        std::string medicationDose = "-";
+int ReportGenerator::countUniquePatientsForDoctor(const Doctor& d, const std::vector<Appointment>& a) const {
+    std::set<std::string> s;
+    for (auto& x : a) if (x.doctorName == d.name) s.insert(x.patientName);
+    return s.size();
+}
 
-        for (size_t j = 0; j < diagnoses.size(); j++) {
-            if (diagnoses[j].patientName == patient.name) {
-                condition = diagnoses[j].condition;
-                medicationDose = diagnoses[j].medication + " / " + diagnoses[j].dose;
-                break;
+std::string ReportGenerator::getDoctorLoadLevel(int c) const {
+    if (c <= 3) return "BAJA";
+    if (c <= 6) return "NORMAL";
+    if (c <= 8) return "ALTA";
+    return "SATURADA";
+}
+
+void ReportGenerator::generateDoctorsReport(
+    const std::vector<Doctor>& doctors,
+    const std::vector<Appointment>& appointments,
+    const std::string& path
+) {
+    std::ofstream f(path);
+
+    f << "<html><body><h1>Medicos</h1><table border='1'>";
+    f << "<tr><th>Nombre</th><th>Citas</th><th>Pacientes</th><th>Carga</th></tr>";
+
+    for (auto& d : doctors) {
+        int c = countAppointmentsForDoctor(d, appointments);
+        int p = countUniquePatientsForDoctor(d, appointments);
+
+        f << "<tr><td>" << d.name << "</td><td>" << c
+          << "</td><td>" << p << "</td><td>"
+          << getDoctorLoadLevel(c) << "</td></tr>";
+    }
+
+    f << "</table></body></html>";
+}
+
+// ================= CITAS =================
+
+void ReportGenerator::generateAppointmentsReport(
+    const std::vector<Appointment>& a,
+    const std::string& path
+) {
+    std::ofstream f(path);
+
+    f << "<html><body><h1>Citas</h1><table border='1'>";
+    f << "<tr><th>Paciente</th><th>Medico</th><th>Fecha</th><th>Hora</th><th>Estado</th></tr>";
+
+    for (size_t i = 0; i < a.size(); i++) {
+
+        bool conflicto = false;
+
+        for (size_t j = 0; j < a.size(); j++) {
+            if (i != j &&
+                a[i].doctorName == a[j].doctorName &&
+                a[i].date == a[j].date &&
+                a[i].time == a[j].time) {
+                conflicto = true;
             }
         }
 
-        std::string status = getPatientStatus(patient, diagnoses);
-        std::string statusClass = getStatusClass(status);
-
-        file << "        <tr>\n";
-        file << "            <td>" << patient.name << "</td>\n";
-        file << "            <td>" << patient.age << "</td>\n";
-        file << "            <td>" << patient.bloodType << "</td>\n";
-        file << "            <td>" << condition << "</td>\n";
-        file << "            <td>" << medicationDose << "</td>\n";
-        file << "            <td class=\"" << statusClass << "\">" << status << "</td>\n";
-        file << "        </tr>\n";
+        f << "<tr><td>" << a[i].patientName << "</td><td>"
+          << a[i].doctorName << "</td><td>"
+          << a[i].date << "</td><td>"
+          << a[i].time << "</td><td>"
+          << (conflicto ? "CONFLICTO" : "OK") << "</td></tr>";
     }
 
-    file << "    </table>\n";
-    file << "</body>\n";
-    file << "</html>\n";
+    f << "</table></body></html>";
+}
 
-    file.close();
+// ================= GENERAL =================
+
+void ReportGenerator::generateGeneralReport(
+    const std::vector<Patient>& p,
+    const std::vector<Doctor>& d,
+    const std::vector<Appointment>& a,
+    const std::vector<Diagnosis>& di,
+    const std::string& path
+) {
+    std::ofstream f(path);
+
+    f << "<html><body><h1>General</h1>";
+    f << "<p>Pacientes: " << p.size() << "</p>";
+    f << "<p>Medicos: " << d.size() << "</p>";
+    f << "<p>Citas: " << a.size() << "</p>";
+    f << "<p>Diagnosticos: " << di.size() << "</p>";
+    f << "</body></html>";
+}
+
+// ================= GRAPHVIZ =================
+
+void ReportGenerator::generateGraphviz(
+    const std::vector<Patient>& p,
+    const std::vector<Doctor>& d,
+    const std::vector<Appointment>& a,
+    const std::string& path
+) {
+    std::ofstream f(path);
+
+    f << "digraph G {\n";
+
+    for (auto& x : p) {
+        f << "\"" << x.name << "\";\n";
+    }
+
+    for (auto& x : d) {
+        f << "\"" << x.name << "\";\n";
+    }
+
+    for (auto& x : a) {
+        f << "\"" << x.patientName << "\" -> \"" << x.doctorName << "\";\n";
+    }
+
+    f << "}\n";
 }

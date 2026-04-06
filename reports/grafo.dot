@@ -1,0 +1,5 @@
+digraph G {
+"Maria Garcia";
+"Dr. Ruiz";
+"Maria Garcia" -> "Dr. Ruiz";
+}
