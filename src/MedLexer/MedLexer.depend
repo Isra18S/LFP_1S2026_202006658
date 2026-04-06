@@ -9,9 +9,10 @@
 1775467858 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalerror.h
 	<string>
 
-1775467979 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalanalyzer.cpp
+1775470762 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalanalyzer.cpp
 	"LexicalAnalyzer.h"
 	<cctype>
+	<sstream>
 
 1775470428 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalanalyzer.h
 	<string>
@@ -28,10 +29,37 @@
 1775469707 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\token.cpp
 	"Token.h"
 
-1775469108 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\main.cpp
+1775473654 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\main.cpp
 	<iostream>
 	<fstream>
 	<sstream>
 	<vector>
+	<filesystem>
 	"LexicalAnalyzer.h"
+	"DataExtractor.h"
+	"ReportGenerator.h"
+
+1775472209 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\dataextractor.cpp
+	"DataExtractor.h"
+
+1775472191 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\dataextractor.h
+	<vector>
+	<string>
+	"Token.h"
+	"Models.h"
+
+1775471984 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\models.h
+	<string>
+
+1775471506 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\models.cpp
+
+1775473204 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\reportgenerator.h
+	<string>
+	<vector>
+	"Models.h"
+
+1775473233 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\reportgenerator.cpp
+	"ReportGenerator.h"
+	<fstream>
+	<sstream>
 
