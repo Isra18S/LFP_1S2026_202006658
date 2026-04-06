@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1775467910 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\errormanager.cpp
+	"ErrorManager.h"
+
+1775467895 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\errormanager.h
+	<vector>
+	"LexicalError.h"
+
+1775467858 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalerror.h
+	<string>
+
+1775467979 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalanalyzer.cpp
+	"LexicalAnalyzer.h"
+	<cctype>
+
+1775469731 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalanalyzer.h
+	<string>
+	<vector>
+	"Token.h"
+	"ErrorManager.h"
+
+1775469689 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\token.h
+	<string>
+
+1775467872 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalerror.cpp
+	"LexicalError.h"
+
+1775467841 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\token.cpp
+	"Token.h"
+
+1775469108 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+	"LexicalAnalyzer.h"
+
