@@ -13,7 +13,7 @@
 	"LexicalAnalyzer.h"
 	<cctype>
 
-1775469731 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalanalyzer.h
+1775470428 c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalanalyzer.h
 	<string>
 	<vector>
 	"Token.h"
@@ -25,7 +25,7 @@
 1775467872 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\lexicalerror.cpp
 	"LexicalError.h"
 
-1775467841 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\token.cpp
+1775469707 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\token.cpp
 	"Token.h"
 
 1775469108 source:c:\users\jisgi\onedrive\documentos\2026\lfyp\proyecto1\lfp_1s2026_202006658\src\medlexer\main.cpp

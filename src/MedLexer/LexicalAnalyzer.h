@@ -41,6 +41,7 @@ private:
     bool isSpecialty(const std::string& lexeme) const;
     bool isDose(const std::string& lexeme) const;
     bool isBloodType(const std::string& lexeme) const;
+    bool isCodeId(const std::string& lexeme) const;
 
     bool isValidDate(const std::string& lexeme) const;
     bool isValidTime(const std::string& lexeme) const;

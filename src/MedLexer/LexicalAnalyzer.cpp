@@ -124,6 +124,28 @@ bool LexicalAnalyzer::isValidTime(const std::string& lexeme) const {
     return hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59;
 }
 
+bool LexicalAnalyzer::isCodeId(const std::string& lexeme) const {
+    if (lexeme.size() < 5) return false;
+
+    size_t dashPos = lexeme.find('-');
+    if (dashPos == std::string::npos) return false;
+    if (dashPos != 3) return false;
+
+    for (int i = 0; i < 3; i++) {
+        if (!std::isalpha(static_cast<unsigned char>(lexeme[i]))) {
+            return false;
+        }
+    }
+
+    for (size_t i = 4; i < lexeme.size(); i++) {
+        if (!std::isdigit(static_cast<unsigned char>(lexeme[i]))) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 std::vector<Token> LexicalAnalyzer::analyze() {
     std::vector<Token> tokens;
     Token token;
@@ -259,7 +281,11 @@ Token LexicalAnalyzer::readString() {
             return Token(TokenType::BLOOD_TYPE, lexeme, startLine, startColumn);
         }
 
-        return Token(TokenType::STRING, lexeme, startLine, startColumn);
+        if (isCodeId(innerText)) {
+            return Token(TokenType::CODE_ID, lexeme, startLine, startColumn);
+        }
+
+return Token(TokenType::STRING, lexeme, startLine, startColumn);
     }
 
     errorManager.addError(LexicalError(
