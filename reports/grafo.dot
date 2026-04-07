@@ -1,5 +1,15 @@
 digraph G {
-"Maria Garcia";
-"Dr. Ruiz";
-"Maria Garcia" -> "Dr. Ruiz";
+"María García";
+"Carlos Mendoza";
+"Sofía Ramírez";
+"Pedro Castillo";
+"Dr. Roberto Juárez";
+"Dra. Ana Solís";
+"Dr. Luis Herrera";
+"Dra. Carmen Vega";
+"María García" -> "Dr. Roberto Juárez";
+"Carlos Mendoza" -> "Dra. Ana Solís";
+"Sofía Ramírez" -> "Dr. Luis Herrera";
+"Pedro Castillo" -> "Dr. Roberto Juárez";
+"Carlos Mendoza" -> "Dra. Carmen Vega";
 }

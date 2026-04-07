@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="MedLexer" />
+		<Option title="MedLexerGui" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/MedLexer" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/MedLexerGui" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/MedLexer" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/MedLexerGui" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -30,24 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-std=c++17" />
-			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="DataExtractor.cpp" />
-		<Unit filename="DataExtractor.h" />
-		<Unit filename="ErrorManager.cpp" />
-		<Unit filename="ErrorManager.h" />
-		<Unit filename="LexicalAnalyzer.cpp" />
-		<Unit filename="LexicalAnalyzer.h" />
-		<Unit filename="LexicalError.cpp" />
-		<Unit filename="LexicalError.h" />
-		<Unit filename="Models.h" />
-		<Unit filename="ReportGenerator.cpp" />
-		<Unit filename="ReportGenerator.h" />
-		<Unit filename="Token.cpp" />
-		<Unit filename="Token.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="models.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
